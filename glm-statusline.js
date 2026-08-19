@@ -273,25 +273,25 @@ async function main() {
   /* line 1: identity + session */
   if (show('model')) seg1.push(`${C.cyan}${C.bold}${model}${C.reset}`);
   if (show('effort')) {
-    seg1.push(`⚡${C.magenta}${effort ? (effort === bucket ? bucket : effort + '→' + bucket) : 'max*'}${C.reset}`);
+    seg1.push(`⚡ ${C.magenta}${effort ? (effort === bucket ? bucket : effort + '→' + bucket) : 'max*'}${C.reset}`);
   }
   if (show('duration') && ctx?.cost?.total_duration_ms) {
-    seg1.push(`${C.dim}⏱${fmtDuration(ctx.cost.total_duration_ms)}${C.reset}`);
+    seg1.push(`${C.dim}⏱ ${fmtDuration(ctx.cost.total_duration_ms)}${C.reset}`);
   }
   if (show('git')) {
     const g = gitInfo(ctx?.workspace?.current_dir || ctx?.cwd);
-    if (g) seg1.push(`${C.green}${g.branch}${g.dirty ? C.yellow + '*' + (g.dirty > 0 ? C.dim + g.dirty : '') : ''}${C.reset}`);
+    if (g) seg1.push(`${C.green}${g.branch}${g.dirty ? C.yellow + ' *' + (g.dirty > 0 ? C.dim + g.dirty : '') : ''}${C.reset}`);
   }
   if (show('credits')) {
     const burned = sessionCredits(ctx?.session_id, api?.fiveHour?.currentValue);
-    if (burned != null) seg1.push(`${C.blue}⛁${fmtTokens(burned)}cr${C.reset}`);
+    if (burned != null) seg1.push(`${C.blue}⛁ ${fmtTokens(burned)} cr${C.reset}`);
   }
   if (show('inout') && tr) {
     seg1.push(`${C.dim}In ${fmtTokens(tr.in)}${C.reset}`);
     seg1.push(`${C.dim}Out ${fmtTokens(tr.out)}${C.reset}`);
   }
   if (show('speed') && tr && tr.recentOut > 0) {
-    seg3.push(`${C.dim}${tr.recentOut}t/m${C.reset}`);
+    seg3.push(`${C.dim}${tr.recentOut} t/m${C.reset}`);
   }
 
   /* line 2: bars */
@@ -322,10 +322,10 @@ async function main() {
   /* line 3: extras */
   if (show('cache') && tr && tr.in > 0) {
     const hit = Math.round((tr.cacheRead / tr.in) * 100);
-    seg3.push(`${C.dim}⌁cache ${hit}%${C.reset}`);
+    seg3.push(`${C.dim}⌁ cache ${hit}%${C.reset}`);
   }
   if (show('compactions') && tr && tr.compactions > 0) {
-    seg3.push(`${C.magenta}⌘${tr.compactions}${C.reset}`);
+    seg3.push(`${C.magenta}⌘ ${tr.compactions}${C.reset}`);
   }
   if (show('ram')) {
     const ram = ramPercent();
