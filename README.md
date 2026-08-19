@@ -3,9 +3,9 @@
 A status line for [Claude Code](https://code.claude.com/docs) sessions running on a **GLM Coding Plan** (Z.ai / BigModel via the Anthropic-compatible endpoint), showing real plan metering instead of fabricated numbers.
 
 ```
-glm-5.3 │ ⚡medium→high │ ⏱1:20 │ main*1 │ ⛁31cr │ In 24.3M │ Out 137.8K
+glm-5.3 │ ⚡ medium→high │ ⏱ 1:20 │ main *1 │ ⛁ 31 cr │ In 24.3M │ Out 137.8K
 Ctx █████░ 68% (665.5K/1.0M) │ 5H █░░░░░ 13% (1563/12000) ↻ 4h22m │ Wk █░░░░░ 4% (2483/60000) (Aug 26 15:19) │ Day 19.5M │ Mon 19.5M
-17324t/m │ ⌁cache 98% │ RAM 20% │ ~/Projects/my-app │ my session name
+17324 t/m │ ⌁ cache 98% │ RAM 20% │ ~/Projects/my-app │ my session name
 ```
 
 Any segment can be hidden: `GLM_SL_HIDE="git,ram,speed"` (comma-separated; keys: `model effort duration git credits inout speed ctx 5h wk daymon cache compactions ram dir session`).
@@ -29,18 +29,18 @@ Two data problems hit every GLM Coding Plan user in Claude Code at once:
 | Widget | Source | Notes |
 |---|---|---|
 | Model | Claude Code stdin | display name |
-| Effort `⚡medium→high` | Claude Code stdin + Z.ai mapping | session effort and the Z.ai bucket it lands in; Z.ai collapses Claude's five levels into `low / high / max` (their default is `max`, shown as `max*` when unset) |
-| Session duration `⏱1:20` | Claude Code stdin | wall-clock session length |
-| Git `main*3` | local git in cwd | branch, dirty marker with changed-file count (1.5s timeout, hidden outside a repo) |
-| Session credits `⛁31cr` | Z.ai quota endpoint | credits burned *this session* — snapshot delta of the 5h window per session id; the honest replacement for ccstatusline's Session Cost, which is client-side Anthropic pricing (fiction on GLM) |
+| Effort `⚡ medium→high` | Claude Code stdin + Z.ai mapping | session effort and the Z.ai bucket it lands in; Z.ai collapses Claude's five levels into `low / high / max` (their default is `max`, shown as `max*` when unset) |
+| Session duration `⏱ 1:20` | Claude Code stdin | wall-clock session length |
+| Git `main *3` | local git in cwd | branch, dirty marker with changed-file count (1.5s timeout, hidden outside a repo) |
+| Session credits `⛁ 31 cr` | Z.ai quota endpoint | credits burned *this session* — snapshot delta of the 5h window per session id; the honest replacement for ccstatusline's Session Cost, which is client-side Anthropic pricing (fiction on GLM) |
 | Cumulative In/Out | session transcript | all-time token totals for this session, not just the current window |
 | Context `bar % (used/size)` | Claude Code stdin | used = live window contents over declared window size |
 | 5H `bar % (cur/cap) ↻ countdown` | Z.ai quota endpoint | credits used in the 5-hour window, countdown to reset |
 | Wk `bar % (cur/cap) (reset date)` | Z.ai quota endpoint | weekly credits, absolute reset date/time |
 | Day / Mon tokens | Z.ai model-usage endpoint | plan-wide token totals for today and this month (the GLM analogue of ccstatusline's per-model weekly buckets, which read Anthropic's OAuth API and render nothing on GLM) |
-| Speed `17324t/m` | session transcript | output tokens in the last rolling 60s |
-| Cache hit `⌁cache 98%` | session transcript | cache reads as share of total input processed |
-| Compactions `⌘2` | session transcript | count of `isCompactSummary` boundaries |
+| Speed `17324 t/m` | session transcript | output tokens in the last rolling 60s |
+| Cache hit `⌁ cache 98%` | session transcript | cache reads as share of total input processed |
+| Compactions `⌘ 2` | session transcript | count of `isCompactSummary` boundaries |
 | RAM `20%` | /proc/meminfo | green < 70%, yellow < 85%, red above |
 | Dir + session name | Claude Code stdin | `$HOME` abbreviated to `~`; session name shown when set |
 
